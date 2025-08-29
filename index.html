@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        .code-block {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            display: inline-block;
+            position: relative;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Conecta</h1>
+        <p>Install Conecta by running the following command in your terminal:</p>
+        <div class="code-block">
+            <pre><code>curl -sSL https://andremillet.github.io/conecta/install.sh | bash</code></pre>
+            <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+        </div>
+    </div>
+    <script>
+        function copyToClipboard() {
+            const code = document.querySelector('pre code').innerText;
+            navigator.clipboard.writeText(code);
+            alert('Copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
