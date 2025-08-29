@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Verifica se o usuário forneceu o caminho completo
+if [ -z "$1" ]; then
+  echo "Uso: conecta <conta/repo/branch/caminho/para/script_sem_extensao>"
+  echo "Exemplo: conecta andremillet/prognosys/conduta-extractor/tui"
+  exit 1
+fi
+
+# Pega o caminho completo fornecido pelo usuário
+SCRIPT_PATH=$1
+FULL_SCRIPT_PATH="${SCRIPT_PATH}.py"
+RAW_URL="https://raw.githubusercontent.com/${FULL_SCRIPT_PATH}"
+
+echo "➡️  Caminho fornecido: ${SCRIPT_PATH}"
+echo "🔎 Buscando script em: ${RAW_URL}"
+
+# Cria um arquivo temporário seguro para armazenar o script
+# O comando 'mktemp' cria um arquivo único e seguro para evitar conflitos
+TMP_FILE=$(mktemp)
+
+# GARANTIA DE LIMPEZA: O 'trap' garante que o arquivo temporário será
+# removido ao final da execução, mesmo se o script for interrompido (Ctrl+C).
+trap 'rm -f "$TMP_FILE"' EXIT
+
+echo "📥 Baixando para arquivo temporário..."
+# Usa o curl para salvar a saída (-o) no nosso arquivo temporário
+curl -sSL "$RAW_URL" -o "$TMP_FILE"
+
+# Verifica se o download falhou (ex: 404 Not Found)
+if [ $? -ne 0 ]; then
+    echo "❌ Erro: Não foi possível baixar o script. Verifique a URL."
+    exit 1
+fi
+
+echo "🚀 Executando o programa interativo..."
+echo "--------------------------------------------------"
+
+# Executa o arquivo baixado. Agora, o stdin do python está conectado ao seu teclado!
+python3 "$TMP_FILE"
+
+echo "--------------------------------------------------"
+echo "✅ Programa finalizado."
+
+# A limpeza do arquivo temporário é feita automaticamente pelo 'trap' no final.
