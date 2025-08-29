@@ -88,7 +88,7 @@
                 O <code>conecta</code> é uma ferramenta de linha de comando que permite baixar e executar scripts Python diretamente de um repositório no GitHub, de forma rápida e sem a necessidade de clonar o projeto inteiro.
             </p>
             <p>
-                Basta fornecer o caminho para o script e o <code>conecta</code> cuida do resto.
+                É ideal para executar ferramentas e utilitários de repositórios sem precisar configurar um ambiente de desenvolvimento completo. Basta fornecer o caminho para o script e o <code>conecta</code> cuida do resto, baixando o script para um local temporário e executando-o com segurança.
             </p>
             <h2>Exemplo de Uso</h2>
             <p>
@@ -96,7 +96,11 @@
             </p>
             <div class="code-block">
                 <pre><code>conecta andremillet/prognosys/conduta-extractor/tui</code></pre>
+                <button class="copy-button" onclick="copyToClipboard(this)">Copiar</button>
             </div>
+            <p>
+                Este comando irá baixar e executar o script `tui.py` localizado no repositório `prognosys` do usuário `andremillet`, no branch `conduta-extractor`.
+            </p>
         </div>
     </div>
     <script>
