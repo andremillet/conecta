@@ -1,56 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conecta</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
         }
         .container {
             text-align: center;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #1a1a1a;
+        }
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
         }
         .code-block {
-            background-color: #f4f4f4;
+            background-color: #2d2d2d;
+            color: #f1f1f1;
             border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 5px;
-            display: inline-block;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
             position: relative;
+            font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+            font-size: 0.95em;
+            margin-top: 20px;
         }
         .copy-button {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 12px;
+            right: 12px;
             cursor: pointer;
             background-color: #007bff;
             color: white;
             border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background-color 0.2s;
+        }
+        .copy-button:hover {
+            background-color: #0056b3;
+        }
+        .description {
+            text-align: left;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .description h2 {
+            font-size: 1.5em;
+            color: #1a1a1a;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Conecta</h1>
-        <p>Install Conecta by running the following command in your terminal:</p>
+        <p>Instale o Conecta executando o seguinte comando no seu terminal:</p>
         <div class="code-block">
             <pre><code>curl -sSL https://andremillet.github.io/conecta/install.sh | bash</code></pre>
-            <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+            <button class="copy-button" onclick="copyToClipboard(this)">Copiar</button>
+        </div>
+
+        <div class="description">
+            <h2>O que é o Conecta?</h2>
+            <p>
+                O <code>conecta</code> é uma ferramenta de linha de comando que permite baixar e executar scripts Python diretamente de um repositório no GitHub, de forma rápida e sem a necessidade de clonar o projeto inteiro.
+            </p>
+            <p>
+                Basta fornecer o caminho para o script e o <code>conecta</code> cuida do resto.
+            </p>
+            <h2>Exemplo de Uso</h2>
+            <p>
+                Para executar um script, utilize o caminho no formato <code>usuario/repositorio/branch/caminho/para/script</code> (sem a extensão <code>.py</code>).
+            </p>
+            <div class="code-block">
+                <pre><code>conecta andremillet/prognosys/conduta-extractor/tui</code></pre>
+            </div>
         </div>
     </div>
     <script>
-        function copyToClipboard() {
-            const code = document.querySelector('pre code').innerText;
-            navigator.clipboard.writeText(code);
-            alert('Copied to clipboard!');
+        function copyToClipboard(button) {
+            const pre = button.parentElement.querySelector('pre');
+            const code = pre.innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                button.innerText = 'Copiado!';
+                setTimeout(() => {
+                    button.innerText = 'Copiar';
+                }, 2000);
+            }, (err) => {
+                console.error('Erro ao copiar: ', err);
+            });
         }
     </script>
 </body>
